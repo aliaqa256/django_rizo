@@ -1,0 +1,15 @@
+
+
+
+{% if short %}
+{{short}}
+
+{% else %}
+<form action="{% url 'cms:short_url_post'    %}" method="POST">
+    {% csrf_token %}
+
+<input type="text" name="long" >
+
+<button type="submit">make</button>
+{% endif %}
+</form>

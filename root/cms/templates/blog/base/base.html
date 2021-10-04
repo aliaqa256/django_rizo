@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fa-ir">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> {% block meta %} {% endblock meta %}
+    <link rel="icon" href="{% static 'account/icon/favicon-32x32.png' %}" type="image/gif" sizes="16x16">
+    <link rel="stylesheet" href="{% static 'account/css/style.css' %}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/shabnam-font/5.0.1/font-face.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        a {
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <!--body-->
+    {% block body %} {% endblock body %}
+    <!--script-->
+    {% block script %} {% endblock script %}
+</body>
+
+</html>

@@ -1,0 +1,45 @@
+{% extends "account/base/Home.html" %} {% block meta %}
+<title>پیام ها </title>
+{% endblock meta %} {% block body %}
+<div class="panel" style="margin: 10px 30px 10px;">
+    <div class="container center" style="margin: 10px 30px 10px;">
+        <b>تمام پیام ها</b>
+    </div>
+</div>
+{% if messages %} {% for message in messages %}
+<div class="alert alert-{{message.tags}} center" style="border-radius: 5rem;">{{ message | safe }}
+    <span onclick="this.parentElement.style.display='none'">&times;</span>
+</div>
+{% endfor %} {% endif %} {% for ticket in tickets %}
+<section class="container">
+    <div class="panel" style="margin: 10px 30px 10px;">
+        {% if ticket.sender == user.email %}
+        <div class="container border" style="margin: 10px 30px 10px;">
+            {% else %}
+            <div class="container border" style="margin: 10px 30px 10px;">
+                {% endif %}
+                <p>
+                    {% if ticket.sender == user.email %}
+                    <b style="color: green;">شما</b> {% else %}
+                    <b style="color: blue;">{{ticket.sender}}</b> {% endif %}
+                </p>
+                <p>{{ticket.jcal_time}}</p>
+                <p>{{ticket.des}}</p>
+            </div>
+        </div>
+</section>
+{% endfor %}
+
+<center>
+    <div class="container center" style="margin: 10px 30px 10px;">
+        <b>ارسال پیام جدید</b>
+    </div>
+    <form class="form-signin" method="POST">
+        {% csrf_token %} {% for fm in form %}
+        <div class="form-label-group">{{fm}} {{fm.errors}}
+        </div>
+        {% endfor %}
+        <button class="f-btn bg-faral btn-block text-uppercase" type="submit">ارسال</button>
+    </form>
+</center>
+{% endblock body %}

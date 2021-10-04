@@ -1,0 +1,12 @@
+venv/
+env/
+*.sqlite3
+db.sqlite3
+*.pyc
+*initial.py
+.idea
+*.jpg
+*.png
+.vscode
+*.json
+*.alireza

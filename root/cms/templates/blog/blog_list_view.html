@@ -1,0 +1,68 @@
+{% extends 'blog/base/base.html' %} {% block meta %}
+<title>بلاگ</title>
+{% endblock meta %} {% block body %}
+<div class="top">
+    <div class="bar card padding sand " id="myNavbar">
+        <a href="javascript:void(0)" class="margin-left text-white bar-item button hover-white hover-text-black right hide-large hide-medium" onclick="qopen()">
+            <i class="fa fa-bars "></i>
+        </a>
+        <a href="" class="bar-item large text-white right margin-left">Action</i></a>
+
+        <form action="{% url 'cms:blog_search' %}" method="GET">
+
+            <input type="text" class="bar-item input right right-align margin-right hide-small" style="width: 350px;" placeholder="جستوجو کنید" name="q" value="{{ request.GET.q }}">
+            <button class="bar-item right button white hover-teal hover-text-white hide-small" type="submit"><i class="fa fa-search "></i></button>
+
+
+        </form>
+
+
+        <a href="{% url 'cms:signup' %}" class="bar-item white btn border border-sand" style="font-weight: bold;">ثبت نام</a>
+        <a href="{% url 'cms:login' %}" class="bar-item white btn border border-sand" style="font-weight: bold;">ورود</a>
+    </div>
+</div>
+<div class="sand border-top border-white hide-small center" style="margin-top: 59px;">
+    <div class="bar">
+        {% for menu in menus %}
+        <a href="{% url 'cms:menus' page=menu.name %}" class="bar-item button hover-white hover-text-sand sand text-white" style="font-weight: bold;">{{menu.name}}</a> {% endfor %}
+    </div>
+</div>
+<nav class="sidebar sand bar-block card animate-left hide-medium hide-large center" style="display:none" id="mySidebar">
+    <a href="javascript:void(0)" onclick="qclose()" class="bar-item text-red button large padding-16 hover-red">بستن <i class="fa fa-close"></i></a> {% for menu in menus %}
+    <a href="{% url 'cms:menus' page=menu.name %}" class="bar-item button hover-text-sand text-white hover-white" style="font-weight: bold;">{{menu.name}}</a> {% endfor %}
+</nav>
+
+<div class="container" style="margin-top: 59px;">
+    <div class="row mobile">
+        {% for i in blog %}
+        <div class="col s2  mobile">
+            <div class=" margin border border-sand center round">
+                <img width="100%" class="round hide-large hide-medium" src="{{i.image.url}}" alt="{{i.image.path}}">
+                <img width="100%" class="round hide-small" src="{{i.image.url}}" alt="{{i.image.path}}">
+                <p>{{i.title}}</p>
+                <b style="font-size: 10px;">نویسنده : <b>{{i.publisher}}</b></b>&nbsp;&nbsp;<b style="font-size: 10px;">بازدید : {{i.seen}} </b>
+                <p style="font-size: 10px;">{{i.jcal_time}}</p>
+                <a style="font-size: 13px;font-weight: bold;" class="text-sand" href="{% url 'cms:blog_detail' slug=i.slug %}">ادامه مطلب</a>
+            </div>
+        </div>
+        {% endfor%}
+    </div>
+</div>
+{% endblock body %} {% block script %}
+<script>
+    var mySidebar = document.getElementById("mySidebar");
+
+    function qopen() {
+        if (mySidebar.style.display === 'block') {
+            mySidebar.style.display = 'none';
+        } else {
+            mySidebar.style.display = 'block';
+        }
+    }
+
+    // Close the sidebar with the close button
+    function qclose() {
+        mySidebar.style.display = "none";
+    }
+</script>
+{% endblock script %}

@@ -1,0 +1,88 @@
+
+
+{%for i in blog %}
+
+<div>{{i.title}}</div>
+
+<img src="{{i.image.url}}" alt="" style="width: 300px ; height: 300px;">
+
+<div> {{i.body|safe}}</div>
+
+<div> 
+   <a href="{{ i.short_link_def }}">shot link:  </a>
+</div>
+
+
+{% if  tags_to_page %}
+ <div>
+    <p> برچسب ها</p>
+    {% for tags in tags_to_page %}
+
+       <a href="{% url 'cms:blog_tag' slug=tags.slug   %}">#{{ tags }}</a>
+
+    {% endfor %}
+
+    </div>
+{% endif %}
+
+<form action="{% url 'cms:blog_star' slug=i.slug %}" method="POST">
+{% csrf_token %}
+<button type="submit" name="post_slug" value="{{i.slug}}" > like  {{i.number_of_starts}} </button>
+
+
+
+
+
+
+</form>
+<div>stars number :{{i.number_of_starts}} </div>
+
+comments
+<br>
+-------------------------------------------------------------
+
+<br>
+<form action="{% url 'cms:blog_comment' slug=i.slug %}" method="POST" > 
+   {% csrf_token %}
+   <p>matn : </p>  <input type="text"  name="comment_post">
+   <button type="submit"> submit </button>
+  
+  
+  
+  
+  
+  
+  
+  </form>
+
+
+
+-------------------------------------------------------------
+<br>
+
+
+
+{% for l in comments %}
+<br>
+
+<div id="{{l.id}}">
+
+
+   {{l.text}}
+   <br>
+   {{l.sender}}
+   <br>
+   {{l.posted_time}}
+   <br>
+   <a href="{% url 'cms:blog_comment_like' id=l.id %}"> like {{l.number_of_likes}} </a>
+   <a href="{% url 'cms:blog_comment_dislike' id=l.id %}"> dislike {{l.number_of_dislikes}} </a>
+
+   
+</div>
+-------------------------------------------------------------
+
+
+{%endfor%}
+<br>
+{%endfor%}
+

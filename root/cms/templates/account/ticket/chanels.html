@@ -1,0 +1,23 @@
+{% extends "account/base/Home.html" %} {% block meta %}
+<title>تیکت ها</title>
+{% endblock meta %} {% block body %}
+<div class="panel" style="margin: 10px 30px 10px;">
+    <div class="container" style="margin: 10px 30px 10px;">
+        <a class="f-btn bg-faral" style="text-decoration: none;" href="{% url 'cms:newticket' %}">ساخت تیکت جدید</a>
+    </div>
+</div>
+<br> {% if messages %} {% for message in messages %}
+<div class="alert alert-{{message.tags}} center" style="border-radius: 5rem;">{{ message | safe }}
+    <span onclick="this.parentElement.style.display='none'">&times;</span>
+</div>
+{% endfor %} {% endif %} {% for ch in chanels %}
+<div class="panel" style="margin: 10px 30px 10px;">
+    <div class="container border" style="margin: 10px 30px 10px;">
+        <div style="padding: 15px;">
+            <p><b>بخش : </b>{{ch.title}}</p>
+            <p><b> تاریخ :</b>{{ch.jcal_time}}</p>
+            <a class="btn border" href="{% url 'cms:myticketchanel' token=ch.token %}">ادامه گفتوگو</a>
+        </div>
+    </div>
+</div>
+{% endfor %} {% endblock body %}
